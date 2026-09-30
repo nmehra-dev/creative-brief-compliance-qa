@@ -1,0 +1,39 @@
+{
+  "note": "Claim type -> where to verify it live. Executed by tier_b_site_check.py where the check is pure HTTP (no auth). Drive-folder checks need the authenticated MCP connection and must be run by the agent itself, not by a script -- see SKILL.md step 5.",
+
+  "numeric_comparison_sources": [
+    {
+      "claim_pattern": "generator",
+      "url": "https://www.basepowercompany.com/",
+      "extract_regex": "(\\d{1,3})%[^<]{0,40}less",
+      "note": "Homepage carries the generator-cost-comparison claim as of 2026-09-28 ('up to 90% less than a traditional generator'). If this regex stops matching, the site copy likely changed -- update this entry, don't assume the claim disappeared."
+    }
+  ],
+
+  "drive_folder_checks": [
+    {
+      "claim_type": "substantiation_doc_exists",
+      "checklist_section": "1.2",
+      "canonical_folder_id": "1Xswy76XUpCTaTTCtD9PdrCs7GQSzXnS-",
+      "canonical_folder_name": "Substantiation Docs",
+      "search_strategy": "fullText contains <campaign name / person name>",
+      "reliability": "weak -- no filename convention is mandated for this folder, so a real file can exist and still not match. A miss here is 'not found in the obvious place', never proof the file doesn't exist anywhere.",
+      "known_alternate_locations": []
+    },
+    {
+      "claim_type": "consent_form_exists",
+      "checklist_section": "1.5",
+      "canonical_folder_id": "1CJhsbUxhuweZtzYsVnD7AkzJud9T5lId",
+      "canonical_folder_name": "Marketing Consent Forms Repository",
+      "search_strategy": "fullText contains <signatory name> (title convention: 'Name of signatory and date of execution as the name of the file' -- confirmed followed by existing files in this folder as of 2026-09-28)",
+      "reliability": "moderate -- convention is confirmed followed for member testimonials, but does NOT cover business/investor/supplier relationships.",
+      "known_alternate_locations": [
+        {
+          "example": "JJ Watt",
+          "actual_location": "Google Drive folder named after the person, under a supplier-contracts parent (folder id 1EKLpXhFSx3Rgcp50IAPZNbbxxJB40itO, parent 1DCwNM03p-IlYlVsEYiJPFKd-p2L7xJhE), containing 'JJ Watt - Base Power Endorsement Agreement (final).pdf'",
+          "lesson": "Investor/business/paid-partner relationships get filed under supplier contracts, not the marketing consent repository. A 'not found in canonical folder' result for this category of person is NOT sufficient evidence of a missing consent form -- flag as 'needs manual confirmation of filing location', not 'FLAG: missing'. Prefer a direct link the brief provides over discovery-by-search whenever the brief has one."
+        }
+      ]
+    }
+  ]
+}

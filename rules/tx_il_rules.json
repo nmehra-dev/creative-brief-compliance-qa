@@ -1,0 +1,97 @@
+{
+  "source": {
+    "tx_checklist_doc_id": "1a0vNzZc7q_ILEORdz580nIObljTspUPGPf-SsZRCC9I",
+    "il_checklist_doc_id": "1rgY60JrfKzvRRuIBDYIjJ-86yVnP-2Mfigf7oOs-_Xo",
+    "date_changed_seen": "Aug 17, 2026",
+    "note": "Re-fetch both docs live every run. If the fetched 'Date changed' line differs from date_changed_seen above, flag the rules file as possibly stale in the report -- do not silently trust this file."
+  },
+  "banned_phrases": [
+    {"id": "1.7-a", "pattern": "waterproof", "section": "1.7", "note": "Never 'proof' language for water/flood claims."},
+    {"id": "1.7-b", "pattern": "flood-proof", "section": "1.7", "note": "Banned per cleared/not-cleared table."},
+    {"id": "1.7-c", "pattern": "flash-flood-proof", "section": "1.7", "note": "Banned paraphrase of 'proof'."},
+    {"id": "1.7-d", "pattern": "impervious", "section": "1.7", "note": "Banned paraphrase of 'proof'."},
+    {"id": "1.7-e", "pattern": "flood-resistant", "section": "1.7", "note": "Must say 'flash flooding', not 'flood-resistant'."},
+    {"id": "1.7-f", "pattern": "survives any flood", "section": "1.7", "note": "Banned per cleared/not-cleared table."},
+    {"id": "2.5-tx-a", "pattern": "your price will never change", "section": "2.5-TX", "state": "TX", "note": "Fixed-rate plans still have pass-through charges that can move."},
+    {"id": "2.5-tx-b", "pattern": "in partnership with", "section": "2.4/2.5-TX", "state": "TX", "note": "Do not imply utility partnership/endorsement."},
+    {"id": "2.8-il-a", "pattern": "locked-in rate", "section": "2.3/2.8-IL", "state": "IL", "note": "IL rate is variable time-of-use, never 'locked in'."},
+    {"id": "2.8-il-b", "pattern": "fixed for your term", "section": "2.3/2.8-IL", "state": "IL", "note": "IL rate is variable, cannot say fixed."},
+    {"id": "2.8-il-c", "pattern": "stop overpaying for electricity", "section": "2.8-IL", "state": "IL", "note": "Banned phrase, say-this/not-that table."},
+    {"id": "2.8-il-c2", "pattern": "rates below the utility rate", "section": "2.8-IL", "state": "IL", "note": "Banned phrase, say-this/not-that table."},
+    {"id": "2.8-il-d", "pattern": "in partnership with comed", "section": "2.5/2.8-IL", "state": "IL", "note": "Never imply ComEd partnership."},
+    {"id": "2.8-il-e", "pattern": "comed-approved supplier", "section": "2.5/2.8-IL", "state": "IL", "note": "Never imply ComEd approval."},
+    {"id": "2.8-il-f", "pattern": "nothing changes with comed", "section": "2.5/2.8-IL", "state": "IL", "note": "Hides that customer is switching suppliers."},
+    {"id": "2.8-il-g", "pattern": "no fees, ever", "section": "2.6/2.8-IL", "state": "IL", "note": "Must scope 'no termination fees' to supply agreement only."},
+    {"id": "2.8-il-h", "pattern": "cancel anytime, no strings", "section": "2.6/2.8-IL", "state": "IL", "note": "Battery agreement has separate cancellation terms."},
+    {"id": "2.9-il-a", "pattern": "clean energy", "section": "2.9-IL", "state": "IL", "note": "No RECs purchased; green/clean claims not usable on supply."},
+    {"id": "2.9-il-b", "pattern": "green electricity", "section": "2.9-IL", "state": "IL", "note": "No RECs purchased; green/clean claims not usable on supply."},
+    {"id": "2.9-il-c", "pattern": "renewable power", "section": "2.9-IL", "state": "IL", "note": "No RECs purchased; green/clean claims not usable on supply."}
+  ],
+  "flag_for_manual_review_phrases": [
+    {"id": "1.7-g", "pattern": "fully submerged", "section": "1.7", "note": "Only OK if immediately qualified with depth+duration (e.g. '1 meter / 30 minutes'); flag for human check regardless of qualifier presence."},
+    {"id": "2.5-tx-c", "pattern": "cheaper than", "section": "2.3/2.5-TX", "state": "TX", "note": "May trigger the verbatim TX comparison disclaimer if comparing to a named retail electric provider -- needs judgment on trigger, not auto-resolvable by regex."},
+    {"id": "1.5-a", "pattern": "results not typical", "section": "1.5", "note": "Checklist explicitly states the FTC rejected this as a fix for a specific-outcome testimonial. Presence near a $ figure is itself a signal, not a mitigant."},
+    {"id": "1.5-b", "pattern": "individual results may vary", "section": "1.5", "note": "Same as above -- explicitly not a valid disclaimer per the checklist."}
+  ],
+  "conditional_required_blocks": [
+    {
+      "id": "promo-terms",
+      "section": "1.4",
+      "trigger_any": ["promo", "promotion", "bill credit", "gift card", "referral reward", "% off", "discount code"],
+      "require_all": ["terms apply", "promo-terms"],
+      "note": "Any promo/bill-credit/gift-card/referral mention requires 'Terms apply' + hyperlink to promo-terms page."
+    },
+    {
+      "id": "apply-cta-agreement",
+      "section": "1.4",
+      "trigger_any": ["apply here", "apply now"],
+      "require_all": ["you agree to the offer terms"],
+      "note": "Any 'Apply Here/Now' CTA button requires the agreement hyperlink beneath it."
+    },
+    {
+      "id": "ad-disclosure",
+      "section": "1.5",
+      "trigger_any": ["influencer", "ambassador", "paid partner"],
+      "require_all": ["#ad"],
+      "note": "Approximate check only -- disclosure phrasing varies ('paid partner', 'I get a referral credit', etc). A miss here is common; treat this rule as low-recall, not proof of absence.",
+      "state": null
+    },
+    {
+      "id": "tx-comparison-disclaimer",
+      "section": "2.3-TX",
+      "state": "TX",
+      "trigger_any": ["cheaper than", "¢/kwh", "% below", "% cheaper"],
+      "require_all": ["you can obtain important standardized information"],
+      "note": "Verbatim TX comparison disclaimer required when ad states a specific price/savings comparison vs another REP. Trigger detection here is crude keyword matching -- confirm applicability with Tier C before trusting a PASS."
+    },
+    {
+      "id": "il-ptc-statement",
+      "section": "2.2-IL",
+      "state": "IL",
+      "trigger_any": ["comed", "price to compare", "switch now", "enroll now"],
+      "require_all": ["is not the same entity as your electric delivery company"],
+      "note": "Verbatim IL PTC statement required on any priced/enrollment IL ad."
+    },
+    {
+      "id": "il-independent-seller-statement",
+      "section": "2.2-IL",
+      "state": "IL",
+      "trigger_any": ["comed", "price to compare", "switch now", "enroll now"],
+      "require_all": ["independent seller of electric power"],
+      "note": "Verbatim IL independent-seller statement, same trigger as the PTC statement."
+    },
+    {
+      "id": "il-consumer-education-link",
+      "section": "2.2-IL",
+      "state": "IL",
+      "trigger_any": ["comed", "price to compare", "switch now", "enroll now"],
+      "require_all": ["plugin.illinois.gov"],
+      "note": "Verbatim IL consumer-education link, same trigger as the PTC statement."
+    }
+  ],
+  "entity_presence_checks": [
+    {"id": "tx-rep-cert", "section": "2.1-TX", "state": "TX", "pattern": "puct #\\s*\\d+", "regex": true, "note": "REP certificate number must appear on every Texas ad."},
+    {"id": "tx-entity-name", "section": "2.1-TX", "state": "TX", "pattern": "base texas rep", "regex": false, "note": "Correct legal entity name must appear somewhere on TX piece."},
+    {"id": "il-entity-name", "section": "2.2-IL", "state": "IL", "pattern": "base retail, llc", "regex": false, "note": "Legal name must appear somewhere on priced IL piece. Gated on IL 'marketing lane' detection, not just state -- goodwill IL content is exempt."}
+  ]
+}

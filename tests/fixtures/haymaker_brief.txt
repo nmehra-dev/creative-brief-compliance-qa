@@ -1,0 +1,20 @@
+## What this is
+Haymaker asked for full-screen 1920x1080 graphics plus logo and branding assets on the September 15 kickoff call. This brief covers the full-screen graphics only.
+
+Three files, two concepts:
+File: JJ, ownership line. Headline: "Base Power. The official power company of JJ Watt's home."
+File: JJ, reliability line. Headline: "Texas homeowners deserve backup they can count on."
+File: Household plus battery, cost line. Headline: "Home backup that's 95% less than a generator."
+
+## Angle rationale
+Lead with cost, not fear. Haymaker's own framing on the call was generator at $10,000 to $13,000 installed versus Base under $1,000. Keep the offer off the graphic. JJ is an investor and a member, not a paid endorser.
+
+## Legal line
+Base Texas REP, LLC, PUCT #10338. Basis for the 95% figure: $695 installation against ~$13,000 installed for a comparable whole-home standby generator.
+
+## Flags
+1. 95% is locked, and the site says 90%. Checklist rule 1.1 treats that kind of split as a trigger.
+2. The cost comparison triggers a disclosure.
+3. Texas entity and license, resolved: Base Texas REP, LLC, PUCT #10338.
+4. The 4.8 rating needs a paper trail -- screenshot still needs taking.
+5. No talent sign-off issue -- Tim cleared the JJ Watt headline.
